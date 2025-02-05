@@ -1,9 +1,13 @@
-<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mapa Interativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+  </head>
+  <body class="flex items-center justify-center min-h-screen bg-gray-100">
+
     <style>
       body {
         display: flex;
@@ -49,18 +53,15 @@
       }
       svg path {
         transition: fill 0.3s, fill-opacity 0.3s;
-        fill-opacity: 0.25;
-        fill: rgba(0, 79, 122, 1);
+        
         stroke: white;
-      }
-
-      svg path:not([id="BR-PB"]):not([id="BR-SP"]):not([id="BR"]) {
-        cursor: default;
       }
 
       svg path[id="BR-PB"],
       svg path[id="BR-SP"],
       svg path[id="BR-DF"] {
+        fill: rgba(0, 79, 122, 1) !important;
+        fill-opacity: 0.50 !important;
         cursor: pointer;
       }
 
@@ -68,30 +69,25 @@
       svg path[id="BR-SP"]:hover,
       svg path[id="BR-DF"]:hover {
         cursor: pointer;
-        fill: rgba(0, 79, 122, 1);
-        fill-opacity: 1;
+        fill: rgba(0, 79, 122, 1) !important;
+        fill-opacity: 1 !important;
       }
 
-      svg path:not([id="BR-PB"]):not([id="BR-SP"]):not([id="BR-BR"]) {
+      svg path:not([id="BR-PB"]):not([id="BR-SP"]):not([id="BR-DF"]) {
         cursor: default;
-      }
-
-      svg path[id="PBR-B"],
-      svg path[id="BR-SP"],
-      svg path[id="BR-DF"] {
-        cursor: pointer;
+        fill-opacity: 0.25;
+        fill: rgba(0, 79, 122, 1);
       }
     </style>
-  </head>
-  <body>
-    <div class="controls">
-      <button id="prev">⬅ Anterior</button>
-      <div id="stateName" class="state-name" onclick="goToState()">Paraíba</div>
-      <button id="next">Próximo ➡</button>
-    </div>
+    <div class="flex flex-col md:flex-row items-center gap-10">
+      <div class="flex items-center gap-4 text-lg font-bold text-blue-700">
+        <i id="prev" class="fas fa-chevron-left cursor-pointer" onclick="prevState()"></i>
+        <div id="stateName" class="cursor-pointer" onclick="goToState()">Paraíba</div>
+        <i id="next" class="fas fa-chevron-right cursor-pointer" onclick="nextState()"></i>
+      </div>
 
-    <div class="map-container">
-      <svg
+      <div class="relative">
+        <svg
         width="715"
         height="744"
         viewBox="0 0 715 744"
@@ -234,6 +230,7 @@
           id="BR-TO"
         />
       </svg>
+      </div>
     </div>
 
     <script>
