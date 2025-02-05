@@ -6,9 +6,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
   </head>
-  <body class="flex items-center justify-center min-h-screen bg-gray-100">
+  <body class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
 
     <style>
+      /* Estilo base */
       svg path {
         fill: rgba(0, 79, 122, 1);
         fill-opacity: 0.25;
@@ -16,29 +17,19 @@
         stroke: white;
         cursor: default;
       }
-      /* clicáveis */
+
+      /* Clicáveis */
       svg path[id="BR-PB"],
       svg path[id="BR-SP"],
       svg path[id="BR-DF"] {
-        fill: rgba(0, 79, 122, 1) !important;
-        fill-opacity: 0.50 !important;
+        fill-opacity: 0.5;
         cursor: pointer;
       }
 
       svg path[id="BR-PB"]:hover,
       svg path[id="BR-SP"]:hover,
       svg path[id="BR-DF"]:hover {
-        cursor: pointer;
-        fill: rgba(0, 79, 122, 1) !important;
         fill-opacity: 1 !important;
-      }
-
-      svg path:not([id="BR-PB"]):not([id="BR-SP"]):not([id="BR-DF"]) {
-        cursor: default;
-        fill-opacity: 0.25 !important;
-        fill: rgba(0, 79, 122, 1);
-        transition: fill 0.3s, fill-opacity 0.3s;
-        stroke: white;
       }
 
       /* Selecionado */
@@ -47,14 +38,19 @@
         stroke-width: 2px;
       }
     </style>
-    <div class="flex flex-col md:flex-row items-center gap-10">
-      <div class="flex items-center gap-4 text-lg font-bold text-blue-700">
-        <i id="prev" class="fas fa-chevron-left cursor-pointer" onclick="prevState()"></i>
-        <div id="stateName" class="cursor-pointer" onclick="goToState()">Paraíba</div>
-        <i id="next" class="fas fa-chevron-right cursor-pointer" onclick="nextState()"></i>
+
+    <div class="flex flex-col md:flex-row w-full max-w-5xl items-center md:items-start">
+      
+      <!-- Navegação -->
+      <div class="flex flex-col items-center justify-center flex-1 text-blue-700">
+        <div class="flex items-center gap-4 text-2xl font-bold">
+          <i id="prev" class="fas fa-chevron-left cursor-pointer"></i>
+          <div id="stateName" class="w-40 text-center cursor-pointer" onclick="goToState()">Paraíba</div>
+          <i id="next" class="fas fa-chevron-right cursor-pointer"></i>
+        </div>
       </div>
 
-      <div class="relative">
+      <div class="flex-1 flex justify-center">
         <svg
         width="715"
         height="744"
@@ -199,6 +195,7 @@
         />
       </svg>
       </div>
+
     </div>
 
     <script>
