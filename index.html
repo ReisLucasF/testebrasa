@@ -9,6 +9,14 @@
   <body class="flex items-center justify-center min-h-screen bg-gray-100">
 
     <style>
+      svg path {
+        fill: rgba(0, 79, 122, 1);
+        fill-opacity: 0.25;
+        transition: fill 0.3s, fill-opacity 0.3s;
+        stroke: white;
+        cursor: default;
+      }
+      /* clicáveis */
       svg path[id="BR-PB"],
       svg path[id="BR-SP"],
       svg path[id="BR-DF"] {
@@ -31,6 +39,12 @@
         fill: rgba(0, 79, 122, 1);
         transition: fill 0.3s, fill-opacity 0.3s;
         stroke: white;
+      }
+
+      /* Selecionado */
+      svg path.selected {
+        fill-opacity: 1 !important;
+        stroke-width: 2px;
       }
     </style>
     <div class="flex flex-col md:flex-row items-center gap-10">
@@ -213,13 +227,13 @@
 
       function highlightState(estadoId) {
         document.querySelectorAll("svg path").forEach((path) => {
-          path.style.fill = "#004F7A";
-          path.style.fillOpacity = "1";
+          path.classList.remove("selected");
+          path.style.fillOpacity = "0.5";
         });
 
         const selected = document.getElementById(estadoId);
         if (selected) {
-          selected.style.fill = "rgba(0, 79, 122, 1)";
+          selected.classList.add("selected");
           selected.style.fillOpacity = "1";
         }
       }
@@ -229,16 +243,16 @@
         window.location.href = `/diretorio/${estado.id}`;
       }
 
-      document
-        .querySelectorAll(
-          'svg path[id="BR-PB"], svg path[id="BR-SP"], svg path[id="BR-DF"]'
-        )
-        .forEach((state) => {
-          state.addEventListener("click", function () {
-            let estadoId = this.id;
-            window.location.href = `/diretorio/${estadoId}`;
-          });
+      document.querySelectorAll("svg path[id='BR-PB'], svg path[id='BR-SP'], svg path[id='BR-DF']").forEach((state) => {
+        state.addEventListener("click", function () {
+          let estadoId = this.id;
+          currentIndex = estados.findIndex(e => e.id === estadoId);
+          updateState();
+          window.location.href = `/diretorio/${estadoId}`;
         });
+      });
+
+      highlightState(estados[currentIndex].id);
     </script>
   </body>
 </html>
